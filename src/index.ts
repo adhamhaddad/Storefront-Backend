@@ -1,21 +1,22 @@
 import express, {Request, Response} from "express";
 import helmet from "helmet";
 import morgan from "morgan";
-
+import cors from 'cors';
 
 const app = express();
 const port = 3000;
 
 // Middlewares
-app.use(express.json());
-app.use(morgan("short"));
+app.use(cors())
 app.use(helmet());
+app.use(morgan("short"));
+app.use(express.json());
+app.use(express.static("public"));
 
 // Just for test
-app.get("/", (req: Request, res: Response) => {
+app.get("/", (_req: Request, res: Response) => {
     res.status(200).json({
-        status: "Success",
-        message: "Server Respond Successfuly!"
+        status: "Success"
     })
 })
 
