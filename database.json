@@ -1,16 +1,16 @@
 {
     "dev": {
         "driver": "pg",
-        "host": "127.0.0.1",
-        "database": "store_dev",
-        "user": "store_user",
-        "password": "user123"
+        "host": "localhost",
+        "database": "store",
+        "user": "adham",
+        "password": "password123"
     },
     "test": {
         "driver": "pg",
-        "host": "127.0.0.1",
+        "host": "localhost",
         "database": "store_test",
-        "user": "store_user_test",
-        "password": "test123"
+        "user": "adham",
+        "password": "password123"
     }
 }

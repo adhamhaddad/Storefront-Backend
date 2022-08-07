@@ -1,28 +1,23 @@
-import express, {Request, Response} from "express";
-import helmet from "helmet";
-import morgan from "morgan";
-import cors from 'cors';
+import express, { Application } from 'express';
+import helmet from 'helmet';
+import product_handler_routes from './handler/Products';
+import User_handler_routes from './handler/Users';
+import Order_handler_routes from './handler/Orders';
 
-const app = express();
-const port = 3000;
+// Express App
+const app: Application = express();
+export const port = process.env.PORT || 3001;
 
-// Middlewares
-app.use(cors())
+// App Middlewares
 app.use(helmet());
-app.use(morgan("short"));
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.urlencoded({extended: false}));
 
-// Just for test
-app.get("/", (_req: Request, res: Response) => {
-    res.status(200).json({
-        status: "Success"
-    })
-})
-
-// Express Server
-app.listen(port, () => {
-    console.log(`Server running at port: ${port}`);
-});
+// App Requests
+product_handler_routes(app);
+User_handler_routes(app);
+Order_handler_routes(app);
+// App Server
+app.listen(port, () => console.log(`Server Listening on http://localhost:${port}`));
 
 export default app;
