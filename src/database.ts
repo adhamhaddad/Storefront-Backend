@@ -11,8 +11,9 @@ const {
     DATABASE_TEST,
     USER,
     PASSWORD,
-    SALT_ROUNDS,
-    PEPPER
+    SALT,
+    PEPPER,
+    TOKEN
 } = process.env;
 
 const database = new Pool({

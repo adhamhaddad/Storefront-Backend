@@ -1,7 +1,5 @@
 type Orders = {
-    product_id: string;
-    quantity: number;
-    user_id: string;
     status: string;
-}
+    user_id: string;
+};
 export default Orders;

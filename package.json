@@ -1,7 +1,9 @@
 {
-  "name": "storefrontbackend",
+  "name": "storefront-backend",
   "version": "1.0.0",
   "main": "index.js",
+  "repository": "https://github.com/adhamhaddad/Storefront-Backend.git",
+  "author": "adhamhaddad <adham.ashraf.haddad@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
@@ -15,11 +17,18 @@
     "@types/pg": "^8.6.5",
     "@types/supertest": "^2.0.12",
     "@types/typescript": "^2.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.32.0",
+    "@typescript-eslint/parser": "^5.32.0",
     "db-migrate": "^0.11.13",
     "db-migrate-pg": "^1.2.2",
+    "eslint": "^8.21.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "jasmine": "^4.3.0",
     "jasmine-spec-reporter": "^7.0.0",
     "nodemon": "^2.0.19",
+    "prettier": "^2.7.1",
+    "supertest": "^6.2.4",
     "ts-node": "^10.9.1",
     "typescript": "^4.7.4"
   },
@@ -29,13 +38,15 @@
     "express": "^4.18.1",
     "helmet": "^5.1.1",
     "jsonwebtoken": "^8.5.1",
-    "pg": "^8.7.3",
-    "supertest": "^6.2.4"
+    "pg": "^8.7.3"
   },
   "scripts": {
+    "prettier": "prettier --write src/**/*.ts",
+    "lint": "eslint src/**/*.ts",
+    "format": "yarn prettier && yarn lint",
     "migrate:up": "db-migrate up",
     "migrate:down": "db-migrate down",
-    "test": "",
+    "test": "ENV=test && tsc && db-migrate up --env test up && jasmine && db-migrate reset",
     "build": "tsc",
     "jasmine": "jasmine",
     "dev": "nodemon src/index.ts",

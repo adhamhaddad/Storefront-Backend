@@ -1,21 +1,38 @@
-import database from "../database";
-import Orders from "../types/Orders";
+import database from '../database';
+import Orders from '../types/Orders';
 
 class Order {
-    async createOrder(o: Orders): Promise<Orders> {
+    async addProduct(quantity: number, orderId: string, productId: string): Promise<Orders> {
         try {
             const connection = await database.connect();
-            const sql = 'INSERT INTO orders (product_id, quantity, user_id, status) VALUES ($1, $2, $3, $4) RETURNING *';
+            const sql = 'INSERT INTO order_products (quantity, order_id, product_id) VALUES ($1, $2, $3) RETURNING *';
             const result = await connection.query(sql, [
-                o.product_id,
-                o.quantity,
-                o.user_id,
-                o.status
+                quantity,
+                orderId,
+                productId
             ]);
             connection.release();
             return result.rows[0];
         } catch (err) {
-            throw new Error(`Could'nt create the order. Error ${(err as Error).message}`);
+            throw new Error(
+                `Could'nt create the order. Error ${(err as Error).message}`
+            );            
+        }
+    }
+    async createOrder(o: Orders): Promise<Orders> {
+        try {
+            const connection = await database.connect();
+            const sql = 'INSERT INTO orders (status, user_id) VALUES ($1, $2) RETURNING *';
+            const result = await connection.query(sql, [
+                o.status,
+                o.user_id
+            ]);
+            connection.release();
+            return result.rows[0];
+        } catch (err) {
+            throw new Error(
+                `Could'nt create the order. Error ${(err as Error).message}`
+            );
         }
     }
 
@@ -27,7 +44,9 @@ class Order {
             connection.release();
             return result.rows;
         } catch (err) {
-            throw new Error(`Could'nt get the all orders. Error ${(err as Error).message}`);
+            throw new Error(
+                `Could'nt get the all orders. Error ${(err as Error).message}`
+            );
         }
     }
 
@@ -39,26 +58,27 @@ class Order {
             connection.release();
             return result.rows[0];
         } catch (err) {
-            throw new Error(`Could'nt get the specific order. Error ${(err as Error).message}`);
+            throw new Error(
+                `Could'nt get the specific order. Error ${(err as Error).message}`
+            );
         }
     }
-
 
     async updateOrder(id: string, o: Orders): Promise<Orders> {
         try {
             const connection = await database.connect();
-            const sql = 'UPDATE orders SET (product_id=$2, quantity=$3, user_id=$4, status=$5) WHERE id=($1) RETURNING *';
+            const sql = 'UPDATE orders SET (status=$2, user_id=$3) WHERE id=($1) RETURNING *';
             const result = await connection.query(sql, [
                 id,
-                o.product_id,
-                o.quantity,
-                o.user_id,
-                o.status
+                o.status,
+                o.user_id
             ]);
             connection.release();
             return result.rows[0];
         } catch (err) {
-            throw new Error(`Could'nt update the order. Error ${(err as Error).message}`);
+            throw new Error(
+                `Could'nt update the order. Error ${(err as Error).message}`
+            );
         }
     }
 
@@ -70,7 +90,9 @@ class Order {
             connection.release();
             return result.rows[0];
         } catch (err) {
-            throw new Error(`Could'nt delete the order. Error ${(err as Error).message}`);
+            throw new Error(
+                `Could'nt delete the order. Error ${(err as Error).message}`
+            );
         }
     }
 }

@@ -20,6 +20,7 @@
 
 #### User
 - id
+- username
 - firstName
 - lastName
 - password

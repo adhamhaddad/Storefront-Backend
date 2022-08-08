@@ -53,19 +53,13 @@ Before submitting, make sure that your project is complete with a `README.md`. Y
 
 Before submitting your project, spin it up and test each endpoint. If each one responds with data that matches the data shapes from the `REQUIREMENTS.md`, it is ready for submission!
 
-# Image Processing API
-#
 ## Description
-This API gets in url params: `name`, `width` and `height` then resize images depends on width & height value.
-__Example:__ `http://localhost:3000/api/resize?name=fjord&width=200&height=200`
-#
-
-Also you can open the original full size by replace `resize` with `preview` and add `name` query of image.
-__Example:__ `http://localhost:3000/api/preview?name=fjord`
+This API gets in url end points: `users`, `orders` and `products`.
+__Example:__ `http://localhost:3000/users`
 
 ## Installations
 
-##### open Terminal in Image-Processing Directory and run the following commands:
+##### open Terminal in Storefront-Backend Directory and run the following commands:
 #
 `yarn` or `npm install`
 #
@@ -74,18 +68,9 @@ __Example:__ `http://localhost:3000/api/preview?name=fjord`
 #### or
 `yarn start`
 
-### Available Image options
-1. `fjord`
-2. `palmtunnel`
-3. `encendaport`
-4. `santamonica`
-5. `icelandwaterfall`
-
 
 ### Functionality
-- user can query endpoint using various params and queries to retrieve an image with a specified height and width.
-- The default height and width is set to 200px.
-- All images requested will be saved to thumb folder.
+- user can query endpoint using various params and queries to create and retrieve orders with a specified token.
 
 ### Code Styles
 This project uses `eslint` and `prettier`. all configurations for this project inside `package.json` file.
@@ -111,7 +96,7 @@ It's format TypeScript to JavaScript
 
 ##### `npm run start` or `yarn start`
 Build and runs the app in the clients mode.
-Open http://localhost:3000/resize?name=fjord&width=200&height=200 to view it in the browser.
+Open http://localhost:3000/ to view it in the browser.
 
 
 ### Built With
@@ -119,3 +104,5 @@ Open http://localhost:3000/resize?name=fjord&width=200&height=200 to view it in 
 - **Express.js**
 - **TypeScript**
 - **Jasmine**
+- **PostgreSQL**
+- **JWT**
