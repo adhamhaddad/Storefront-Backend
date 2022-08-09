@@ -14,6 +14,12 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
 // App Requests
+app.get('/', (_req: express.Request, res: express.Response) => {
+    res.status(200).json({
+        status: true,
+        message: 'Server request recieved successfully!'
+    })
+})
 product_handler_routes(app);
 user_handler_routes(app);
 order_handler_routes(app);
