@@ -1,16 +1,17 @@
 {
     "dev": {
         "driver": "pg",
+        "port": "5432",
         "host": "localhost",
         "database": "store",
-        "user": "adham",
-        "password": "password123"
+        "user": "postgres"
     },
     "test": {
         "driver": "pg",
+        "port": "5432",
         "host": "localhost",
         "database": "store_test",
-        "user": "adham",
-        "password": "password123"
+        "user": "postgres"
+
     }
 }

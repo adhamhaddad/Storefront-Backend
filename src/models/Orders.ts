@@ -2,31 +2,34 @@ import database from '../database';
 import Orders from '../types/Orders';
 
 class Order {
-    async addProduct(quantity: number, orderId: string, productId: string): Promise<Orders> {
+    async addProduct(
+        quantity: number,
+        orderId: string,
+        productId: string
+    ): Promise<Orders> {
         try {
             const connection = await database.connect();
-            const sql = 'INSERT INTO order_products (quantity, order_id, product_id) VALUES ($1, $2, $3) RETURNING *';
+            const sql =
+                'INSERT INTO order_products (quantity, order_id, product_id) VALUES ($1, $2, $3) RETURNING *';
             const result = await connection.query(sql, [
                 quantity,
                 orderId,
-                productId
+                productId,
             ]);
             connection.release();
             return result.rows[0];
         } catch (err) {
             throw new Error(
                 `Could'nt create the order. Error ${(err as Error).message}`
-            );            
+            );
         }
     }
     async createOrder(o: Orders): Promise<Orders> {
         try {
             const connection = await database.connect();
-            const sql = 'INSERT INTO orders (status, user_id) VALUES ($1, $2) RETURNING *';
-            const result = await connection.query(sql, [
-                o.status,
-                o.user_id
-            ]);
+            const sql =
+                'INSERT INTO orders (status, user_id) VALUES ($1, $2) RETURNING *';
+            const result = await connection.query(sql, [o.status, o.user_id]);
             connection.release();
             return result.rows[0];
         } catch (err) {
@@ -59,7 +62,9 @@ class Order {
             return result.rows[0];
         } catch (err) {
             throw new Error(
-                `Could'nt get the specific order. Error ${(err as Error).message}`
+                `Could'nt get the specific order. Error ${
+                    (err as Error).message
+                }`
             );
         }
     }
@@ -67,11 +72,12 @@ class Order {
     async updateOrder(id: string, o: Orders): Promise<Orders> {
         try {
             const connection = await database.connect();
-            const sql = 'UPDATE orders SET (status=$2, user_id=$3) WHERE id=($1) RETURNING *';
+            const sql =
+                'UPDATE orders SET (status=$2, user_id=$3) WHERE id=($1) RETURNING *';
             const result = await connection.query(sql, [
                 id,
                 o.status,
-                o.user_id
+                o.user_id,
             ]);
             connection.release();
             return result.rows[0];

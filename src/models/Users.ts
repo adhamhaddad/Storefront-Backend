@@ -96,7 +96,10 @@ class User {
         }
     }
 
-    async authenticate(username: string, password: string): Promise<Users | null> {
+    async authenticate(
+        username: string,
+        password: string
+    ): Promise<Users | null> {
         try {
             const connection = await database.connect();
             const sql = 'SELECT password FROM users WHERE username=($1)';
@@ -104,9 +107,13 @@ class User {
 
             if (result.rows.length) {
                 const pass = result.rows[0].password;
-                const isPasswordValid = bcrypt.compareSync(password+process.env.PEPPER, pass);
+                const isPasswordValid = bcrypt.compareSync(
+                    password + process.env.PEPPER,
+                    pass
+                );
                 if (isPasswordValid) {
-                    const info = 'SELECT id, firstName, lastName, username FROM users WHERE username=($1)';
+                    const info =
+                        'SELECT id, firstName, lastName, username FROM users WHERE username=($1)';
                     const userInfo = await connection.query(info, [username]);
                     return userInfo.rows[0];
                 }
@@ -115,7 +122,9 @@ class User {
             return null;
         } catch (err) {
             throw new Error(
-                `Could'nt authenticate the user. Error ${(err as Error).message}`
+                `Could'nt authenticate the user. Error ${
+                    (err as Error).message
+                }`
             );
         }
     }

@@ -1,3 +1,4 @@
+import supertest from 'supertest';
 import database from '../../database';
 import User from '../../models/Users';
 import Users from '../../types/Users';
@@ -11,7 +12,7 @@ describe('User Model methods', () => {
     it ('deleteUser method should be exist', () => expect(user.deleteUser).toBeDefined())
 });
 
-describe('Test on the Authenication Logic', () => {
+describe('Authenication function', () => {
     const newUser: Users = {
         firstName: 'Adham',
         lastName: 'Ashraf',
@@ -19,24 +20,48 @@ describe('Test on the Authenication Logic', () => {
         password: 'adham123'
     }
     beforeAll(async () => {
-        try {
-            const result = await user.createUser(newUser)
-            newUser.id = result.id;
-            // expect(result).toBe(true);
-        } catch (err) {
-            throw new Error(`Could'nt create user. Error ${(err as Error).message}`);
-        }
+        await user.createUser(newUser)
     })
     afterAll(async () => {
-        try {
-            const connection = await database.connect();
-            const sql = 'DELETE FROM users';
-            connection.release();
-        } catch (err) {
-            throw new Error(`Could'nt create user. Error ${(err as Error).message}`);
-        }
+        const connection = await database.connect();
+        await connection.query('DELETE FROM users\nALTER SEQUENCE id RESTART WITH 1');
+        connection.release();
     });
+
+    it('Create method should return a new user', async () => {
+        const newUser: Users = {
+            firstName: 'Mariam',
+            lastName: 'Maged',
+            username: "atMrym",
+            password: 'mrym123'
+        }
+        await user.createUser(newUser);
+        expect(newUser).toEqual({
+            id: newUser.id,
+            username: 'atMrym',
+            firstName: 'Mariam',
+            lastName: 'Maged',
+            password: newUser.password
+        })
+    })
+
+    it('getAllUsers method should return all users', async () => {
+        const users = await user.getAllUsers();
+        expect(users.length).toBe(2);
+    })
+    it('getUser method should return newUser', async () => {
+        const retunedUser = await user.getUser(newUser.id as string);
+        console.log(retunedUser)
+        expect(retunedUser).toBe([]);
+    })
+
     // it('Authenicate method should return the Authenicated user', async () => {
-    //     const authenicateUser = await user
+    //     const authenicateUser = await user.authenticate(newUser.username, newUser.password);
+    //     expect(authenicateUser?.username).toBe(newUser.username);
+    //     expect(authenicateUser?.password).toBe(newUser.password);
+    // })
+    // it('Authenicate method should return null if the Authenicated user wrong', async () => {
+    //     const authenicateUser = await user.authenticate('adhamhadda', 'adham12');
+    //     expect(authenicateUser).toBe(null);
     // })
 })

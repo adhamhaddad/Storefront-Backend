@@ -6,20 +6,21 @@ dotenv.config();
 const {
     ENV,
     PORT,
-    HOST,
-    DATABASE,
-    DATABASE_TEST,
-    USER,
-    PASSWORD,
+    DB_HOST,
+    DB_PORT,
+    DB_DEV,
+    DB_TEST,
+    DB_USER,
+    DB_PASSWORD,
     SALT,
     PEPPER,
     TOKEN
 } = process.env;
 
 const database = new Pool({
-    host: HOST,
-    database: ENV === 'dev' ? DATABASE : DATABASE_TEST,
-    user: USER,
-    password: PASSWORD
+    host: DB_HOST,
+    port: Number(DB_PORT),
+    database: ENV === 'dev' ? DB_DEV : DB_TEST,
+    user: DB_USER
 })
 export default database;

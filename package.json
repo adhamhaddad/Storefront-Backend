@@ -42,14 +42,15 @@
   },
   "scripts": {
     "prettier": "prettier --write src/**/*.ts",
-    "lint": "eslint src/**/*.ts",
+    "lint": "eslint src/**/*.ts --fix",
     "format": "yarn prettier && yarn lint",
     "migrate:up": "db-migrate up",
     "migrate:down": "db-migrate down",
-    "test": "ENV=test && tsc && db-migrate up --env test up && jasmine && db-migrate reset",
+    "test1": "ENV=test && tsc && db-migrate up --env test && tsc && jasmine && db-migrate reset test",
+    "test2": "ENV=test db-migrate --env test up && jasmine-ts && db-migrate db:drop test",
     "build": "tsc",
     "jasmine": "jasmine",
     "dev": "nodemon src/index.ts",
-    "start": "yarn build && yarn jasmine && node dist/index.js"
+    "start": "yarn build && node dist/index.js"
   }
 }

@@ -20,6 +20,7 @@ module.exports = {
         "prettier"
     ],
     "rules": {
+        'prettier/prettier': 1,
         quotes: ['error', 'single'],
         "no-console": 0,
         "no-var": "error",
