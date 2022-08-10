@@ -9,10 +9,10 @@ const user = new User();
 const createUser = async (req: Request, res: Response) => {
     try {
         const response = await user.createUser(req.body);
-        jwt.sign(response, String(process.env.TOKEN));
+        const token = jwt.sign(response, process.env.TOKEN as string);
         res.status(201).json({
             status: true,
-            data: { ...response },
+            data: { ...response, token },
             message: 'User created successfully!',
         });
     } catch (err) {
@@ -39,12 +39,12 @@ const getUser = async (req: Request, res: Response) => {
     }
 };
 
-const getAllUsers = async (req: Request, res: Response) => {
+const getAllUsers = async (_req: Request, res: Response) => {
     try {
         const response = await user.getAllUsers();
         res.status(200).json({
             status: true,
-            data: { ...response },
+            data: response,
             message: 'Users received successfully!',
         });
     } catch (err) {
@@ -93,10 +93,18 @@ const authenticate = async (req: Request, res: Response) => {
             req.body.username,
             req.body.password
         );
-        const token = jwt.sign({ response }, String(process.env.TOKEN));
-        res.status(200).json({
+        const token = jwt.sign({ response }, process.env.TOKEN as string);
+
+        if (!response) {
+            return res.status(401).json({
+                status: false,
+                message: "Username and password does'nt match",
+            });
+        }
+
+        return res.status(200).json({
             status: true,
-            data: token,
+            data: { ...response, token },
             message: 'User authenticated successfully!',
         });
     } catch (err) {
@@ -113,6 +121,6 @@ const user_handler_routes = (app: Application) => {
     app.get('/users/:id', logger, verifyToken, getUser);
     app.patch('/users/:id', logger, verifyToken, updateUser);
     app.delete('/users/:id', logger, verifyToken, deleteUser);
-    app.post('/users/authenticate', logger, verifyToken, authenticate);
+    app.post('/users/authenticate', logger, authenticate);
 };
 export default user_handler_routes;

@@ -14,13 +14,14 @@ const {
     DB_PASSWORD,
     SALT,
     PEPPER,
-    TOKEN
+    TOKEN,
 } = process.env;
 
 const database = new Pool({
     host: DB_HOST,
-    port: Number(DB_PORT),
+    port: Number(DB_PORT as string),
     database: ENV === 'dev' ? DB_DEV : DB_TEST,
-    user: DB_USER
-})
+    user: DB_USER,
+    password: DB_PASSWORD,
+});
 export default database;

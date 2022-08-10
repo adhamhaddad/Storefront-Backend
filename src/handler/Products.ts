@@ -42,7 +42,7 @@ const getAllProducts = async (req: Request, res: Response) => {
         const response = await product.getAllProducts();
         res.status(200).json({
             status: true,
-            data: { ...response },
+            data: response,
             message: 'Products received successfully!',
         });
     } catch (err) {

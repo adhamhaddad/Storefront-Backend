@@ -14,7 +14,7 @@ class Order {
             const result = await connection.query(sql, [
                 quantity,
                 orderId,
-                productId,
+                productId
             ]);
             connection.release();
             return result.rows[0];
@@ -53,7 +53,7 @@ class Order {
         }
     }
 
-    async getOrder(id: string): Promise<Orders[]> {
+    async getOrder(id: string): Promise<Orders> {
         try {
             const connection = await database.connect();
             const sql = 'SELECT * FROM orders WHERE id=($1)';
@@ -73,11 +73,11 @@ class Order {
         try {
             const connection = await database.connect();
             const sql =
-                'UPDATE orders SET (status=$2, user_id=$3) WHERE id=($1) RETURNING *';
+                'UPDATE orders SET status=$2, user_id=$3 WHERE id=($1) RETURNING *';
             const result = await connection.query(sql, [
                 id,
                 o.status,
-                o.user_id,
+                o.user_id
             ]);
             connection.release();
             return result.rows[0];

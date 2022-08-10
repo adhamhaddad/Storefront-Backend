@@ -1,33 +1,41 @@
 ## API Endpoints
-#### Products
-- Index
-- Show
-- Create [token required]
+- users [get]
+- products [get]
+- orders [get]
+- order-products [get]
 
 #### Users
-- Index [token required]
-- Show [token required]
-- Create [token required]
-
+- createUser [token required]
+- getAllUsers [token required]
+- getUser [token required]
+- updateUser [token required]
+- deleteUser [token required]
+#### Products
+- createProduct [token required]
+- getAllProducts
+- getProduct
+- updateProduct [token required]
+- deleteProduct [token required]
 #### Orders
 - Current Order by user (args: user id)[token required]
 
 ## Data Shapes
-#### Product
--  id
-- name
-- price
-
 #### User
 - id
+- firstname
+- lastname
 - username
-- firstName
-- lastName
 - password
-
+#### Product
+- id
+- name
+- price
 #### Orders
 - id
-- id of each product in the order
-- quantity of each product in the order
+- status
 - user_id
-- status of order (active or complete)
+#### Order_Products
+- id
+- quantity
+- product_id
+- order_id

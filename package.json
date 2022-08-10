@@ -46,11 +46,10 @@
     "format": "yarn prettier && yarn lint",
     "migrate:up": "db-migrate up",
     "migrate:down": "db-migrate down",
+    "migrate:reset": "db-migrate reset",
     "build": "tsc",
     "jasmine": "jasmine",
-    "test": "yarn build && yarn jasmine",
-    "test1": "ENV=test && tsc && db-migrate up --env test && tsc && jasmine && db-migrate reset test",
-    "test2": "ENV=test db-migrate --env test up && jasmine && db-migrate db:drop test",
+    "test": "ENV=test && yarn migrate:up --env test && tsc && ENV=test yarn jasmine && ENV=test yarn migrate:reset --env test",
     "dev": "nodemon src/index.ts",
     "start": "yarn build && node dist/index.js"
   }

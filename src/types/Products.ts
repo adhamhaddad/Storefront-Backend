@@ -1,5 +1,6 @@
 type Products = {
+    id?: number | undefined;
     name: string;
-    price: string;
+    price: number;
 };
 export default Products;

@@ -31,7 +31,7 @@ class Product {
         }
     }
 
-    async getProduct(id: string): Promise<Products[]> {
+    async getProduct(id: string): Promise<Products> {
         try {
             const connection = await database.connect();
             const sql = 'SELECT * FROM products WHERE id=($1)';
@@ -51,7 +51,7 @@ class Product {
         try {
             const connection = await database.connect();
             const sql =
-                'UPDATE products SET (name=$2, price=$3) WHERE id=($1) RETURNING *';
+                'UPDATE products SET name=$2, price=$3 WHERE id=($1) RETURNING *';
             const result = await connection.query(sql, [id, p.name, p.price]);
             connection.release();
             return result.rows[0];

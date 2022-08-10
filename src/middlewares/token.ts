@@ -1,12 +1,14 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 
-const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+const verifyToken = (req: Request, res: Response, next: NextFunction) => {
     try {
-        const authorization = String(req.headers.authorization);
+        const authorization = req.headers.authorization as string;
         const token = authorization.split(' ')[1];
-        jwt.verify(token, String(process.env.TOKEN));
-        next();
+        const decode = jwt.verify(token, process.env.TOKEN as string);
+        if (decode) {
+            next();
+        }
     } catch (err) {
         res.status(401).json({
             status: false,

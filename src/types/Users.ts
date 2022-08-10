@@ -1,7 +1,7 @@
 type Users = {
-    id?: string;
-    firstName: string;
-    lastName: string;
+    id?: number | undefined;
+    firstname: string;
+    lastname: string;
     username: string;
     password: string;
 };

@@ -61,7 +61,7 @@ const getAllOrders = async (req: Request, res: Response) => {
         const response = await order.getAllOrders();
         res.status(200).json({
             status: true,
-            data: { ...response },
+            data: response,
             message: 'Orders received successfully!',
         });
     } catch (err) {
