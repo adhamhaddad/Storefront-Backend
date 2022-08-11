@@ -49,7 +49,7 @@
     "migrate:reset": "db-migrate reset",
     "build": "tsc",
     "jasmine": "jasmine",
-    "test": "ENV=test && yarn migrate:up --env test && tsc && ENV=test yarn jasmine && ENV=test yarn migrate:reset --env test",
+    "test": "export ENV=test && tsc && db-migrate up --env test && jasmine && db-migrate reset --env test",
     "dev": "nodemon src/index.ts",
     "start": "yarn build && node dist/index.js"
   }

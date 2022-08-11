@@ -15,7 +15,12 @@ describe('User Handler APIs', () => {
         password: 'adham123'
     };
     describe('Test on token validation', () => {
-        beforeAll(async () => await user.createUser(newUser));
+        beforeAll(async () => {
+            const connection = await database.connect();
+            await connection.query('DELETE FROM users;\nALTER SEQUENCE users_id_seq RESTART WITH 1');
+            connection.release();
+            await user.createUser(newUser)
+        });
         afterAll(async () => {
             const connection = await database.connect();
             await connection.query('DELETE FROM users;\nALTER SEQUENCE users_id_seq RESTART WITH 1');

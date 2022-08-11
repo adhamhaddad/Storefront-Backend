@@ -24,6 +24,10 @@ describe('Product Handler APIs', () => {
 
     describe('Test on token validation', () => {
         beforeAll(async () => {
+            const connection = await database.connect();
+            await connection.query('DELETE FROM users;\nALTER SEQUENCE users_id_seq RESTART WITH 1');
+            await connection.query('DELETE FROM products;\nALTER SEQUENCE products_id_seq RESTART WITH 1');
+            connection.release();
             await user.createUser(newUser)
             await product.createProduct(newProduct)
         });

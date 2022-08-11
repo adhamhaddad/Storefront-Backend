@@ -1,13 +1,17 @@
 import supertest from "supertest";
 import app from "../../index";
 import database from '../../database';
+import User from "../../models/Users";
+import Product from "../../models/Products";
 import Order from "../../models/Orders";
 import Orders from "../../types/Orders";
 
+const user = new User();
+const product = new Product();
 const order = new Order();
 const request = supertest(app);
 let token = '';
-/*
+
 describe('Product Handler APIs', () => {
     const newOrder = {
         status: 'complete'
@@ -15,6 +19,11 @@ describe('Product Handler APIs', () => {
 
     describe('Test on token validation', () => {
         beforeAll(async () => {
+            const connection = await database.connect();
+            await connection.query('DELETE FROM users;\nALTER SEQUENCE users_id_seq RESTART WITH 1');
+            await connection.query('DELETE FROM products;\nALTER SEQUENCE products_id_seq RESTART WITH 1');
+            await connection.query('DELETE FROM orders;\nALTER SEQUENCE orders_id_seq RESTART WITH 1');
+            connection.release();
             await order.createOrder(newOrder)
         });
         afterAll(async () => {
@@ -43,37 +52,35 @@ describe('Product Handler APIs', () => {
 
     describe('Test all CRUD operation APIs', () => {
         
-        it('Expect createProduct /products endpoint to be 201 ok', async () => {
-            const response = await request.post('/products').set('Content-type', 'application/json').set('Authorization', `Bearer ${token}`).send({
+        it('Expect createOrder /orders endpoint to be 201 ok', async () => {
+            const response = await request.post('/orders').set('Content-type', 'application/json').set('Authorization', `Bearer ${token}`).send({
                 name: 'Labtop',
                 price: 12000
             });
             expect(response.status).toBe(201);
         })
         
-        it('Expect getAllProduct /products endpoint to be 200 ok', async () => {
-            const response = await request.get('/products');
+        it('Expect getAllOrders /orders endpoint to be 200 ok', async () => {
+            const response = await request.get('/orders');
             expect(response.status).toBe(200);
         })
 
-        it('Expect getProduct /products endpoint to be 200 ok', async () => {
-            const response = await request.get('/products/1');
+        it('Expect getOrder /orders endpoint to be 200 ok', async () => {
+            const response = await request.get('/orders/1');
             expect(response.status).toBe(200);
         })
         
-        it('Expect updateProduct /products endpoint to be 201', async () => {
-            const response = await request.patch('/products/1').set('Content-type', 'application/json').set('Authorization', `Bearer ${token}`).send({
+        it('Expect updateOrder /orders endpoint to be 201', async () => {
+            const response = await request.patch('/orders/1').set('Content-type', 'application/json').set('Authorization', `Bearer ${token}`).send({
                 name: 'Mobile',
                 price: 5000
             });
             expect(response.status).toBe(201);
         })
         
-        it('Expect deleteProduct /products endpoint to be 200 ok', async () => {
-            const response = await request.delete('/products/1').set('Content-type', 'application/json').set('Authorization', `Bearer ${token}`)
+        it('Expect deleteOrder /orders endpoint to be 200 ok', async () => {
+            const response = await request.delete('/orders/1').set('Content-type', 'application/json').set('Authorization', `Bearer ${token}`)
             expect(response.status).toBe(200);
         })
-        
     })
 })
-*/

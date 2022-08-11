@@ -63,6 +63,42 @@ __Example:__ `http://localhost:3000/users`
 #
 `yarn` or `npm install`
 #
+#### Create Role:
+```
+CREATE ROLE adham WITH PASSWORD 'password123';
+```
+#### Or you can use the default user of postgres called `postgres`
+```
+ALTER ROLE postgres WITH PASSWORD 'password123';
+```
+#### Create Database:
+```
+CREATE DATABASE store;
+CREATE DATABASE store_dev;
+```
+#### Connect and give access to user:
+```
+\c store
+GRANT ALL PRIVILEGES ON DATABASE store TO adham;
+\c store_test
+GRANT ALL PRIVILEGES ON DATABASE store_test TO adham;
+```
+#### Create file in root folder of Storefront-Backend with name .env and enter the following text on it:
+```
+ENV=dev
+PORT=3000
+# Database Configurations
+DB_HOST=localhost
+DB_PORT=5432
+DB_DEV=store
+DB_TEST=store_test
+DB_USER=adham
+DB_PASSWORD=password123
+# Authentication Configurations
+SALT=10
+PEPPER=love-and-thunder
+TOKEN=adham123!
+```
 ##### To run server:
 `npm run start`
 #### or
@@ -70,7 +106,7 @@ __Example:__ `http://localhost:3000/users`
 
 
 ### Functionality
-- user can query endpoint using various params and queries to create and retrieve orders with a specified token.
+- user can query endpoint using various params and queries to create and retrieve orders with a token validation.
 
 ### Code Styles
 This project uses `eslint` and `prettier`. all configurations for this project inside `package.json` file.

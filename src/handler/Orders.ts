@@ -106,8 +106,8 @@ const deleteOrder = async (req: Request, res: Response) => {
 
 const order_handler_routes = (app: Application) => {
     app.post('/orders', logger, verifyToken, createOrder);
-    app.get('/orders', logger, getAllOrders);
-    app.get('/orders/:id', logger, getOrder);
+    app.get('/orders', logger, verifyToken, getAllOrders);
+    app.get('/orders/:id', logger, verifyToken, getOrder);
     app.patch('/orders/:id', logger, verifyToken, updateOrder);
     app.delete('/orders/:id', logger, verifyToken, deleteOrder);
     // add products
