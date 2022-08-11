@@ -54,7 +54,7 @@ Before submitting, make sure that your project is complete with a `README.md`. Y
 Before submitting your project, spin it up and test each endpoint. If each one responds with data that matches the data shapes from the `REQUIREMENTS.md`, it is ready for submission!
 
 ## Description
-This an backend API for a frontend store that make all CRUD operation in the url end points: `users`, `orders` and `products`.
+This is a backend API for a frontend store that makes all CRUD operations in the URL endpoints: `users`, `orders`, and `products`.
 __Example:__ `http://localhost:3000/users`
 ##### Available ports: `3000` or `3001`
 ## Installations
