@@ -13,7 +13,7 @@ const createUser = async (req: Request, res: Response) => {
         res.status(201).json({
             status: true,
             data: { ...response, token },
-            message: 'User created successfully!',
+            message: 'User created successfully!'
         });
     } catch (err) {
         res.status(400).json({
@@ -29,7 +29,7 @@ const getUser = async (req: Request, res: Response) => {
         res.status(200).json({
             status: true,
             data: { ...response },
-            message: 'User received successfully!',
+            message: 'User received successfully!'
         });
     } catch (err) {
         res.status(400).json({
@@ -45,7 +45,7 @@ const getAllUsers = async (_req: Request, res: Response) => {
         res.status(200).json({
             status: true,
             data: response,
-            message: 'Users received successfully!',
+            message: 'Users received successfully!'
         });
     } catch (err) {
         res.status(400).json({
@@ -61,7 +61,7 @@ const updateUser = async (req: Request, res: Response) => {
         res.status(201).json({
             status: true,
             data: { ...response },
-            message: 'User updated successfully!',
+            message: 'User updated successfully!'
         });
     } catch (err) {
         res.status(400).json({
@@ -77,7 +77,7 @@ const deleteUser = async (req: Request, res: Response) => {
         res.status(200).json({
             status: true,
             data: { ...response },
-            message: 'User deleted successfully!',
+            message: 'User deleted successfully!'
         });
     } catch (err) {
         res.status(400).json({
@@ -98,14 +98,14 @@ const authenticate = async (req: Request, res: Response) => {
         if (!response) {
             return res.status(401).json({
                 status: false,
-                message: "Username and password does'nt match",
+                message: "Username and password does'nt match"
             });
         }
 
         return res.status(200).json({
             status: true,
             data: { ...response, token },
-            message: 'User authenticated successfully!',
+            message: 'User authenticated successfully!'
         });
     } catch (err) {
         res.status(400).json({
