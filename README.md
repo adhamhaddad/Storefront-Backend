@@ -1,7 +1,6 @@
 # Storefront Backend Project
 
 ## Required Technologies
-Your application must make use of the following libraries:
 - Postgres for the database
 - Node/Express for the application logic
 - dotenv from npm for managing environment variables
